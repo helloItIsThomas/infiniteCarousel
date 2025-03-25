@@ -1,20 +1,7 @@
 import { someData } from "../data/someData";
 
-function getNewProject() {
-  const numSlides = 5;
-  const numProjects = someData.projects.length;
-  const newProject = someData.projects[numSlides % numProjects];
-
-  return newProject;
-}
-
 function populateFiveSlides(containerForItems) {
-  // const lastItem = containerForItems.lastElementChild;
-  // const firstItem = containerForItems.firstElementChild;
-  // const lastClone = lastItem.cloneNode(true);
-  // const firstClone = firstItem.cloneNode(true);
   const items = document.querySelectorAll(".item");
-  const numSlides = 5;
   const numProjects = someData.projects.length;
 
   items.forEach((item, index) => {
@@ -33,12 +20,17 @@ window.addEventListener("load", () => {
 
   const moveVal = 100 / items.length;
   const dur = 0.5;
-
+  const numSlides = 5;
   let clickCounter = 0;
 
-  prevBtn.addEventListener("click", () => {
-    const numSlides = 5;
+  const numLeftover = numSlides % someData.projects.length;
+  console.log("numLeftover: ", numLeftover);
+  const aNum = someData.projects.length - numLeftover;
+  console.log("aNum: ", aNum);
+  // console.log(someData.projects[aNum].name);
 
+  prevBtn.addEventListener("click", () => {
+    clickCounter = (clickCounter + 1) % numSlides;
     gsap.to(containerForItems, {
       x: `+=${moveVal}%`,
       duration: dur,
@@ -52,7 +44,6 @@ window.addEventListener("load", () => {
         const lastChild = containerForItems.lastElementChild;
 
         lastChild.querySelector(".item-img").src = setNewProjectToMe.image;
-        console.log(setNewProjectToMe.name);
         const lastClone = lastChild.cloneNode(true);
 
         containerForItems.prepend(lastClone);
@@ -60,40 +51,7 @@ window.addEventListener("load", () => {
         gsap.set(containerForItems, {
           x: `-=${moveVal}%`,
         });
-
-        clickCounter = (clickCounter + 1) % numSlides;
       },
     });
   });
 });
-
-function makeNewTimeline(containerForItems, moveVal, dur) {
-  const tl = gsap.timeline({
-    paused: true,
-  });
-
-  tl.to(containerForItems, {
-    x: `+=${moveVal}%`,
-    duration: dur,
-    ease: "power2.inOut",
-    onComplete: () => {
-      console.log("done");
-    },
-  }).call(
-    () => {
-      console.log("midway");
-      const thirdItem = containerForItems.children[3];
-      const thirdClone = thirdItem.cloneNode(true);
-      const lastChild = containerForItems.lastElementChild;
-
-      containerForItems.replaceChild(
-        thirdClone,
-        containerForItems.firstElementChild
-      );
-    },
-    [],
-    "<50%"
-  );
-
-  return tl;
-}
