@@ -1,27 +1,36 @@
 window.addEventListener("load", () => {
+  const prevBtn = document.querySelector(".prev-btn");
+  const nextBtn = document.querySelector(".next-btn");
   const containerForItems = document.querySelector(".containerForItems");
 
   const lastItem = containerForItems.lastElementChild;
   const firstItem = containerForItems.firstElementChild;
-  const firstClone = firstItem.cloneNode(true);
   const lastClone = lastItem.cloneNode(true);
-  containerForItems.appendChild(lastClone);
-  containerForItems.prepend(firstClone);
+  const firstClone = firstItem.cloneNode(true);
+  containerForItems.appendChild(firstClone);
+  containerForItems.prepend(lastClone);
 
   const items = document.querySelectorAll(".item");
-  const itemContainers = document.querySelectorAll(".item-container");
-
-  const prevBtn = document.querySelector(".prev-btn");
-  const nextBtn = document.querySelector(".next-btn");
 
   const moveVal = 100 / items.length;
-
   const dur = 0.5;
 
   prevBtn.addEventListener("click", () => {
-    let tl = makeNewTimeline(containerForItems, moveVal, dur);
-
-    tl.restart();
+    gsap.to(containerForItems, {
+      x: `+=${moveVal}%`,
+      duration: dur,
+      ease: "power2.inOut",
+      onComplete: () => {
+        const lastItem = containerForItems.lastElementChild;
+        const lastClone = lastItem.cloneNode(true);
+        const lastChild = containerForItems.lastElementChild;
+        containerForItems.prepend(lastClone);
+        containerForItems.removeChild(lastChild);
+        gsap.set(containerForItems, {
+          x: `-=${moveVal}%`,
+        });
+      },
+    });
   });
 });
 
