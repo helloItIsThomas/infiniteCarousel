@@ -23,11 +23,8 @@ window.addEventListener("load", () => {
   const numSlides = 5;
   let clickCounter = 0;
 
-  const numLeftover = numSlides % someData.projects.length;
+  const numLeftover = numSlides - someData.projects.length;
   console.log("numLeftover: ", numLeftover);
-  const aNum = someData.projects.length - numLeftover;
-  console.log("aNum: ", aNum);
-  // console.log(someData.projects[aNum].name);
 
   prevBtn.addEventListener("click", () => {
     clickCounter = (clickCounter + 1) % numSlides;
