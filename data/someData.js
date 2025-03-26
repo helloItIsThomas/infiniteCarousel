@@ -20,10 +20,10 @@ export const someData = {
       description: "Project 4 description",
       image: "public/3.png",
     },
-    // {
-    // name: "Gold",
-    // description: "Project 5 description",
-    // image: "public/4.png",
-    // },
+    {
+      name: "Gold",
+      description: "Project 5 description",
+      image: "public/4.png",
+    },
   ],
 };
