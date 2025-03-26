@@ -27,6 +27,19 @@ window.addEventListener("load", () => {
   console.log("numLeftover: ", numLeftover);
   let aNum = 5 - numLeftover - 1;
 
+  //
+  //
+  //
+  //
+
+  //  JUST NEED TO IMPLEMENT PROPER WRAPPING NOW
+
+  //
+  //
+  //
+  //
+  //
+
   prevBtn.addEventListener("click", () => {
     aNum = 5 - numLeftover - (1 + clickCounter);
     gsap.to(containerForItems, {
