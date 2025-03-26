@@ -25,18 +25,22 @@ window.addEventListener("load", () => {
 
   const numLeftover = numSlides - someData.projects.length;
   console.log("numLeftover: ", numLeftover);
+  const aNum = 5 - numLeftover - 1;
+  console.log("...: ", aNum);
 
   prevBtn.addEventListener("click", () => {
-    clickCounter = (clickCounter + 1) % numSlides;
     gsap.to(containerForItems, {
       x: `+=${moveVal}%`,
       duration: dur,
       ease: "power2.inOut",
       onComplete: () => {
+        clickCounter = (clickCounter + 1) % numSlides;
         const numProjects = someData.projects.length;
 
-        const setNewProjectToMe =
-          someData.projects[Math.abs(numSlides - clickCounter) % numProjects];
+        // const setNewProjectToMe =
+        // someData.projects[Math.abs(numSlides - clickCounter) % numProjects];
+
+        const setNewProjectToMe = someData.projects[aNum];
 
         const lastChild = containerForItems.lastElementChild;
 
