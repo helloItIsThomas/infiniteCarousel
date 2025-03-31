@@ -24,7 +24,6 @@ window.addEventListener("load", () => {
   const numSlides = 5;
   const numProjects = someData.projects.length;
   console.log("numProjects: ", numProjects);
-  let clickOffset = 0;
 
   const numLeftover = numSlides - someData.projects.length;
   console.log("numLeftover: ", numLeftover);
@@ -35,28 +34,47 @@ window.addEventListener("load", () => {
       duration: dur,
       ease: "power2.inOut",
       onComplete: () => {
-        const setProjectNum = 0;
-
-        // const setNewProjectToMe = someData.projects[setProjectNum];
         const setNewProjectToMe =
           containerForItems.children[5 - numLeftover - 1];
-        console.log("setNewProjectToMe: ", setNewProjectToMe);
 
-        clickOffset = (clickOffset + 1) % numSlides;
-
+        // lastChild be moved to the front.
         const lastChild = containerForItems.lastElementChild;
 
         lastChild.querySelector(".item-img").src =
           setNewProjectToMe.querySelector(".item-img").src;
-        const lastClone = lastChild.cloneNode(true);
 
+        const lastClone = lastChild.cloneNode(true);
         containerForItems.prepend(lastClone);
         containerForItems.removeChild(lastChild);
         gsap.set(containerForItems, {
           x: `-=${moveVal}%`,
         });
-        console.log("clickOffset: ", clickOffset);
-        console.log(" ___~~~___ ");
+      },
+    });
+  });
+
+  nextBtn.addEventListener("click", () => {
+    gsap.to(containerForItems, {
+      x: `-=${moveVal}%`,
+      duration: dur,
+      ease: "power2.inOut",
+      onComplete: () => {
+        console.log("numLeftover: ", numLeftover);
+
+        const setNewProjectToMe = containerForItems.children[numLeftover];
+
+        // this will need to be moved to the end
+        const firstChild = containerForItems.firstElementChild;
+
+        firstChild.querySelector(".item-img").src =
+          setNewProjectToMe.querySelector(".item-img").src;
+
+        const firstClone = firstChild.cloneNode(true);
+        containerForItems.append(firstClone);
+        containerForItems.removeChild(firstChild);
+        gsap.set(containerForItems, {
+          x: `+=${moveVal}%`,
+        });
       },
     });
   });
