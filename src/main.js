@@ -22,60 +22,62 @@ window.addEventListener("load", () => {
   const moveVal = 100 / items.length;
   const dur = 0.5;
   const numSlides = 5;
-  const numProjects = someData.projects.length;
-  console.log("numProjects: ", numProjects);
-
   const numLeftover = numSlides - someData.projects.length;
-  console.log("numLeftover: ", numLeftover);
+
+  let tl = gsap.timeline();
 
   prevBtn.addEventListener("click", () => {
-    gsap.to(containerForItems, {
-      x: `+=${moveVal}%`,
-      duration: dur,
-      ease: "power2.inOut",
-      onComplete: () => {
-        const setNewProjectToMe =
-          containerForItems.children[5 - numLeftover - 1];
+    tl.add(
+      gsap.to(containerForItems, {
+        x: `+=${moveVal}%`,
+        duration: dur,
+        ease: "power2.inOut",
+        onComplete: () => {
+          const setNewProjectToMe =
+            containerForItems.children[5 - numLeftover - 1];
 
-        // lastChild be moved to the front.
-        const lastChild = containerForItems.lastElementChild;
+          // lastChild be moved to the front.
+          const lastChild = containerForItems.lastElementChild;
 
-        lastChild.querySelector(".item-img").src =
-          setNewProjectToMe.querySelector(".item-img").src;
+          lastChild.querySelector(".item-img").src =
+            setNewProjectToMe.querySelector(".item-img").src;
 
-        const lastClone = lastChild.cloneNode(true);
-        containerForItems.prepend(lastClone);
-        containerForItems.removeChild(lastChild);
-        gsap.set(containerForItems, {
-          x: `-=${moveVal}%`,
-        });
-      },
-    });
+          const lastClone = lastChild.cloneNode(true);
+          containerForItems.prepend(lastClone);
+          containerForItems.removeChild(lastChild);
+          gsap.set(containerForItems, {
+            x: `-=${moveVal}%`,
+          });
+        },
+      })
+    );
   });
 
   nextBtn.addEventListener("click", () => {
-    gsap.to(containerForItems, {
-      x: `-=${moveVal}%`,
-      duration: dur,
-      ease: "power2.inOut",
-      onComplete: () => {
-        console.log("numLeftover: ", numLeftover);
+    tl.add(
+      gsap.to(containerForItems, {
+        x: `-=${moveVal}%`,
+        duration: dur,
+        ease: "power2.inOut",
+        onComplete: () => {
+          console.log("numLeftover: ", numLeftover);
 
-        const setNewProjectToMe = containerForItems.children[numLeftover];
+          const setNewProjectToMe = containerForItems.children[numLeftover];
 
-        // this will need to be moved to the end
-        const firstChild = containerForItems.firstElementChild;
+          // this will need to be moved to the end
+          const firstChild = containerForItems.firstElementChild;
 
-        firstChild.querySelector(".item-img").src =
-          setNewProjectToMe.querySelector(".item-img").src;
+          firstChild.querySelector(".item-img").src =
+            setNewProjectToMe.querySelector(".item-img").src;
 
-        const firstClone = firstChild.cloneNode(true);
-        containerForItems.append(firstClone);
-        containerForItems.removeChild(firstChild);
-        gsap.set(containerForItems, {
-          x: `+=${moveVal}%`,
-        });
-      },
-    });
+          const firstClone = firstChild.cloneNode(true);
+          containerForItems.append(firstClone);
+          containerForItems.removeChild(firstChild);
+          gsap.set(containerForItems, {
+            x: `+=${moveVal}%`,
+          });
+        },
+      })
+    );
   });
 });
