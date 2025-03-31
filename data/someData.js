@@ -15,15 +15,15 @@ export const someData = {
       description: "Project 3 description",
       image: "/2.png",
     },
-    {
-      name: "Mario",
-      description: "Project 4 description",
-      image: "/3.png",
-    },
-    {
-      name: "Gold",
-      description: "Project 5 description",
-      image: "/4.png",
-    },
+    // {
+    // name: "Mario",
+    // description: "Project 4 description",
+    // image: "/3.png",
+    // },
+    // {
+    // name: "Gold",
+    // description: "Project 5 description",
+    // image: "/4.png",
+    // },
   ],
 };
