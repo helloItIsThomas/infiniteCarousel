@@ -1,5 +1,4 @@
 import { someData } from "../data/someData";
-import { mathMod } from "./utils";
 
 function populateFiveSlides() {
   const items = document.querySelectorAll(".item");
@@ -32,6 +31,9 @@ window.addEventListener("load", () => {
         x: `+=${moveVal}%`,
         duration: dur,
         ease: "power2.inOut",
+        onUpdate: function () {
+          console.log(this.progress());
+        },
         onComplete: () => {
           const setNewProjectToMe =
             containerForItems.children[5 - numLeftover - 1];
